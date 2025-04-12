@@ -30,6 +30,7 @@ class Cart (
         return "Cart(items=${items.joinToString()})"
     }
 
+    @Override
     override fun hashCode(): Int { // intellisense gets mad if equals is overridden without hashCode as well?
         return items.hashCode()
     }

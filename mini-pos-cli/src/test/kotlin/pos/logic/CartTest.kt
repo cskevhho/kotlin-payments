@@ -23,6 +23,11 @@ class CartTest {
 
     @Test
     fun testDisplayItems() {
+        val testCart = Cart(mutableListOf(itemOne, itemTwo, itemThree)).getItems()
+        val expected = listOf(itemOne, itemTwo, itemThree)
+
+        assertEquals(expected, testCart)
+
     }
 
     @Test
