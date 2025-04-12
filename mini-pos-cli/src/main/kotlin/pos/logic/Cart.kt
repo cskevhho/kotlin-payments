@@ -17,6 +17,8 @@ class Cart (
         }
     }
 
+    fun addItem(item: Item) = items.add(item)
+
     @Override
     override fun equals(other: Any?): Boolean {
         if (this === other) return true // ref check

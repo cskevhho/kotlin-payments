@@ -10,14 +10,11 @@ class CartTest {
     val itemFour: Item = Item.create("Theo's Stack", 6996.00, 500)
 
     @Test
-    fun testAddItems() {
-    }
-
-    @Test
     fun testRemoveItems() {
         val testCart = Cart(mutableListOf(itemOne, itemTwo, itemThree))
         val expected = Cart(mutableListOf(itemOne, itemThree))
         testCart.removeItem(2)
+
         assertEquals(expected, testCart)
     }
 
@@ -27,7 +24,15 @@ class CartTest {
         val expected = listOf(itemOne, itemTwo, itemThree)
 
         assertEquals(expected, testCart)
+    }
 
+    @Test
+    fun testAddItem() {
+        val testCart = Cart(mutableListOf(itemOne, itemTwo, itemThree))
+        val expected = Cart(mutableListOf(itemOne, itemTwo, itemThree, itemFour))
+        testCart.addItem(itemFour)
+
+        assertEquals(expected, testCart)
     }
 
     @Test
