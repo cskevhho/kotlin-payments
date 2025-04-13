@@ -4,9 +4,9 @@ import pos.model.Item
     Cart should have "Add", "Remove", "Display", "Calculate"?
  */
 class Cart (
-    private val items: MutableList<Item> = mutableListOf()
+    private val items: MutableList<Item>
 ) {
-    fun getItems(): List<Item> = items // private prop to ensure immutability?
+    fun getItems(): List<Item> = items // private initial prop to ensure immutability?
 //  fun getItems(): List<Item> = items.toList() // doesn't seem very space efficient? but according to docs guarantees imm?
 
     fun removeItem(targetId: Int?) { // may not exist
