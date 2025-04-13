@@ -3,10 +3,12 @@ import pos.model.Item
 import pos.model.ItemStock
 
 object ItemInventory {
+    private const val MAX_QUANTITY = 99
+
     private val inventory: MutableMap<Int, ItemStock> = mutableMapOf()
-    private val item1 = Item.create( "Primeagen's Beans", 420.69)
-    private val item2 = Item.create( "DHH's Rubies", 13.37)
-    private val item3 = Item.create( "TJ's Terminals", 0.50)
+    private val item1 = Item.create("Primeagen's Beans", 420.69)
+    private val item2 = Item.create("DHH's Rubies", 13.37)
+    private val item3 = Item.create("TJ's Terminals", 0.50)
     private val item4 = Item.create("Altman's LLMs", 100_000_000.00)
 
     init { // for testing reasons, maybe deploy with this as default init?
@@ -25,7 +27,6 @@ object ItemInventory {
 
     // fun getItemById(id: Int): Item = inventory[id]?.item ?: error("Item ID#$id not found") // elvis for error, but it should already be confirmed pre-condition
     internal fun getItemById(id: Int): Item { return inventory[id]!!.item } // visibility lock to module-level
-
 
     // fun checkStock(id: Int): Int = inventory[id]?.quantity ?: 0 // KISS vs DRY?
     fun checkStock(id: Int): Int {
@@ -49,13 +50,13 @@ object ItemInventory {
     fun restockItem(id: Int, quantity: Int): String {
         val item = getItemById(id)
         val stock = inventory[item.id]!!
-        val remainingSpace = 99 - stock.quantity
+        val remainingSpace = MAX_QUANTITY - stock.quantity
 
         val addedAmount = minOf(quantity, remainingSpace)
         stock.quantity += addedAmount
 
         return if (addedAmount < quantity) {
-            "Only $addedAmount of units restocked to ${item.name}. Inventory capped at 99."
+            "Only $addedAmount of units restocked to ${item.name}. Inventory capped at $MAX_QUANTITY."
         } else {
             "$addedAmount of units added to ${item.name}. Current quantity: ${stock.quantity}"
         }
