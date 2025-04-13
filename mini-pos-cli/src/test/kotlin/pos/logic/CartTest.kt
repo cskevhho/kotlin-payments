@@ -20,21 +20,13 @@ class CartTest {
         cart = Cart(mutableListOf())
     }
 
-//    @Test
-//    fun testDisplayItems() {
-//        val testCart = Cart(mutableListOf(itemOne, itemTwo, itemThree)).getItems()
-//        val expected = listOf(itemOne, itemTwo, itemThree)
-//
-//        assertEquals(expected, testCart)
-//    }
-
     @Test
     fun testAddEntry_Empty() {
         val testEntry: Item = itemOne
         cart.addEntry(testEntry, 2)
         val expected: MutableList<CartEntry> = mutableListOf(CartEntry(itemOne, 2))
 
-        assertEquals(expected, cart.getEntries())
+        assertEquals(expected, cart.showEntries())
     }
 
     @Test
@@ -44,14 +36,27 @@ class CartTest {
         cart.addEntry(testEntry, 4)
         val expected: MutableList<CartEntry> = mutableListOf(CartEntry(itemOne, 6))
 
-        assertEquals(expected, cart.getEntries())
+        assertEquals(expected, cart.showEntries())
     }
 
     @Test
-    fun testRemoveEntry() {
-        // CartEntry(item, quantity) Item(id,name,price)
+    fun testRemoveEntry_Decrement() {
+        val testEntry: Item = itemOne
+        cart.addEntry(testEntry, 2)
+        cart.removeEntry(itemOne, 1)
+        val expected: MutableList<CartEntry> = mutableListOf(CartEntry(itemOne, 1))
 
-//        assertEquals(expected, testCart)
+        assertEquals(expected, cart.showEntries())
+    }
+
+    @Test
+    fun testRemoveEntry_FullRemove() {
+        val testEntry: Item = itemOne
+        cart.addEntry(testEntry, 2)
+        cart.removeEntry(testEntry, 4)
+        val expected: MutableList<CartEntry> = mutableListOf()
+
+        assertEquals(expected, cart.showEntries())
     }
 
     @Test

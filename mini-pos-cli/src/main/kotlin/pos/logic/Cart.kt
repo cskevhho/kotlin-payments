@@ -5,8 +5,8 @@ import pos.model.Item
 class Cart (
     private val cartEntries: MutableList<CartEntry>
 ) {
-    fun getEntries(): List<CartEntry> = cartEntries // private initial prop to ensure immutability?
-//  fun getEntries(): List<Item> = items.toList() // doesn't seem very space efficient? but according to docs guarantees imm?
+
+    fun showEntries(): List<CartEntry> = cartEntries.toList() // idiomatic Kotlin prioritizes safety anyway
 
     fun addEntry(item: Item, quantity: Int) {
         val entry = cartEntries.find { it.item.id == item.id }
@@ -17,13 +17,15 @@ class Cart (
             cartEntries.add(CartEntry(item, quantity))
         }
     }
-    
-    fun removeEntry(targetId: Int?) { // may not exist
-        //        for (item in items) {
-        //            if (item.id == targetId) {
-        //                items.remove(item)
-        //            }
-        //        }
+
+    fun removeEntry(item: Item, quantity: Int) { // cli should confirm if an item is removable or not anyway, no need for null safety
+        val entry = cartEntries.find { it.item.id == item.id }
+
+        if (quantity >= entry!!.quantity) {
+            cartEntries.remove(entry)
+        } else {
+           entry.quantity -= quantity
+        }
     }
 
     @Override
