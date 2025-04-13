@@ -9,6 +9,8 @@ class Cart (
     fun showEntries(): List<CartEntry> = cartEntries.toList() // idiomatic Kotlin prioritizes safety anyway
 
     fun addEntry(item: Item, quantity: Int) {
+        if (quantity <= 0) return
+
         val entry = cartEntries.find { it.item.id == item.id }
 
         if (entry != null) {
@@ -24,8 +26,16 @@ class Cart (
         if (quantity >= entry!!.quantity) {
             cartEntries.remove(entry)
         } else {
-           entry.quantity -= quantity
+            entry.quantity -= quantity
         }
+    }
+
+    fun calculateTotal(): Double {
+        var total: Double = 0.00
+        for (entry in cartEntries) {
+            total += (entry.item.price * entry.quantity)
+        }
+        return total
     }
 
     @Override
