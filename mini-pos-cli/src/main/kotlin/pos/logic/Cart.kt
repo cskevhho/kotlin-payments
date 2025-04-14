@@ -3,7 +3,7 @@ import pos.model.CartEntry
 import pos.model.Item
 
 class Cart (
-    private val cartEntries: MutableList<CartEntry>
+    private val cartEntries: MutableList<CartEntry> = mutableListOf()
 ) {
 
     fun showEntries(): List<CartEntry> = cartEntries.toList() // idiomatic Kotlin prioritizes safety anyway

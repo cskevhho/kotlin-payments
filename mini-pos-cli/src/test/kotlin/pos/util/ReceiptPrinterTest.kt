@@ -13,7 +13,7 @@ class ReceiptPrinterTest {
 
     @Test
     fun testPrintReceipt_MultipleItems() {
-        cart = Cart(mutableListOf())
+        cart = Cart()
         cart.addEntry(itemOne, 2) // Primeagen's Beans, $420.69
         cart.addEntry(itemTwo, 1) // DHH's Rubies, $13.37
 
