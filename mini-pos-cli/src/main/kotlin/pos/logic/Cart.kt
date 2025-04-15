@@ -38,6 +38,10 @@ class Cart (
         return total
     }
 
+    fun clear() {
+        cartEntries.clear()
+    }
+
     @Override
     override fun equals(other: Any?): Boolean {
         if (this === other) return true // ref check
