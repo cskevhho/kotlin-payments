@@ -25,6 +25,8 @@ object ItemInventory {
         inventory[item4.id]?.quantity = 0
     }
 
+    fun viewInventory(): Map<Int, ItemStock> = inventory.toMap()
+
     // fun getItemById(id: Int): Item = inventory[id]?.item ?: error("Item ID#$id not found") // elvis for error, but it should already be confirmed pre-condition
     internal fun getItemById(id: Int): Item { return inventory[id]!!.item } // visibility lock to module-level
 
