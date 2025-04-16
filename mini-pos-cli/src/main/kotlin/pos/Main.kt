@@ -31,14 +31,15 @@ fun main() {
 
 fun handleViewInventory() {
     println("Available Items:")
-    println("ID  Name                    Price     Stock")
-    println("--------------------------------------------")
+    println("ID   Name                    Price     Stock")
+    println("------------------------------------------------")
 
     for ((id, stock) in ItemInventory.viewInventory()) {
+        val idStr = id.toString().padEnd(5)
         val name = stock.item.name.padEnd(22)
-        val price = String.format("$%.2f", stock.item.price).padEnd(9)
-        val quantity = stock.quantity.toString().padEnd(5)
-        println("$id  $name$price$quantity")
+        val price = String.format("$%.2f", stock.item.price).padEnd(12)
+        val quantity = if (stock.quantity == 0) "OUT".padEnd(6) else stock.quantity.toString().padEnd(5)
+        println("$idStr$name$price$quantity")
     }
 }
 
@@ -60,7 +61,7 @@ fun handleAddToCart(cart: Cart) {
                     cart.addEntry(item, quantity)
                     println("Added $quantity x '${item.name}' to cart.")
                 } else {
-                    println("Not enough stock for item ID $id, ${ItemInventory.getItemById(id).name}.")
+                    println("Not enough stock for item ID $id, ${ItemInventory.getItemById(id)}.")
                 }
             } else {
                 println("Invalid ID or quantity.")
@@ -73,7 +74,7 @@ fun handleRemoveFromCart(cart: Cart) {
     val entries = cart.showEntries()
 
     if (entries.isEmpty()) {
-        println("🛒 Your cart is empty.")
+        println("Your cart is empty.")
         return
     }
 
@@ -108,7 +109,7 @@ fun handleCheckout(cart: Cart) {
         return
     }
 
-    println("\n======= RECEIPT =======")
+    println("\n============ RECEIPT ============")
     println(ReceiptPrinter.printReceipt(cart))
 
     cart.clear()
@@ -119,21 +120,22 @@ fun handleViewCart(cart: Cart) {
     val entries = cart.showEntries()
 
     if (entries.isEmpty()) {
-        println("🛒 Your cart is empty.")
+        println("Your cart is empty.")
         return
     }
 
     println("Your Cart:")
-    println("Qty  Item                    Subtotal")
+    println("ID  Qty  Item                 Subtotal")
     println("----------------------------------------")
 
     for (entry in entries) {
+        val id = entry.item.id.toString().padEnd(4)
         val qty = entry.quantity.toString().padEnd(4)
         val name = entry.item.name.padEnd(22)
         val subtotal = String.format("$%.2f", entry.item.price * entry.quantity)
-        println("$qty$name$subtotal")
+        println("$id$qty$name$subtotal")
     }
 
     println("----------------------------------------")
-    println("TOTAL:".padEnd(28) + String.format("$%.2f", cart.calculateTotal()))
+    println("TOTAL:".padEnd(30) + String.format("$%.2f", cart.calculateTotal()))
 }

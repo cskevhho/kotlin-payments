@@ -6,10 +6,10 @@ object ItemInventory {
     private const val MAX_QUANTITY = 99
 
     private val inventory: MutableMap<Int, ItemStock> = mutableMapOf()
-    private val item1 = Item.create("Primeagen's Beans", 420.69)
+    private val item1 = Item.create("Primeagen's Beans", 4.20)
     private val item2 = Item.create("DHH's Rubies", 13.37)
     private val item3 = Item.create("TJ's Terminals", 0.50)
-    private val item4 = Item.create("Altman's LLMs", 100_000_000.00)
+    private val item4 = Item.create("Altman's LLMs", 100_000.00)
 
     init { // for testing reasons, maybe deploy with this as default init?
         inventory[item1.id] = ItemStock(item1, 50)
@@ -39,7 +39,7 @@ object ItemInventory {
 
     fun takeItem(id: Int, quantity: Int): Boolean {
         val item = getItemById(id)
-        val stock = inventory[item.id]!!
+        val stock: ItemStock = inventory[item.id]!!
 
         return if (quantity > stock.quantity) {
             false
