@@ -32,5 +32,5 @@ Simply enter the number corresponding to the action you want to perform and foll
 
 ## Notes
 
-* The inventory data is currently initialized within the code[cite: 40].
+* The inventory data is currently initialized within the code.
 * This is a basic implementation for demonstration purposes and familiarizing myself with idiomatic Kotlin (we love null safety in this household)
