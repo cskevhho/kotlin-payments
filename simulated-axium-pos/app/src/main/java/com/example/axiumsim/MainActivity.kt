@@ -12,8 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.axiumsim.ui.theme.AxiumSimTheme
+import com.example.axiumsim.viewmodels.BasketViewModel
 
 class MainActivity : ComponentActivity() {
+    private val basketViewModel = BasketViewModel()
+    // TODO: Integrate BasketScreen into MainActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
